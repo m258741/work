@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -x
+
+arch="amd64"
+release_url="https://api.github.com/repos/docker/buildx/releases/latest"
+curl_options='-O --connect-timeout 2 --retry 5 --retry-delay 5 --retry-max-time 20 -sfL'
+
+# get latest version of buildx
+#latest_version=$(curl --silent "${release_url}" | jq '.tag_name' | tr -d '"')
+latest_version=$(curl --silent "${release_url}" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+
+download_file="buildx-${latest_version}.darwin-${arch}"
+download_url="https://github.com/docker/buildx/releases/download/${latest_version}/${download_file}"
+
+# download latest version
+curl $curl_options $download_url
+
+# create destination folder
+mkdir -p ~/.docker/cli-plugins
+
+if [ ! -f ~/.docker/cli-plugins/docker-buildx ]; then
+	mv ${download_file} ~/.docker/cli-plugins/docker-buildx
+	chmod +x ~/.docker/cli-plugins/docker-buildx
+fi
+
+exit 0
+

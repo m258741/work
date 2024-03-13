@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  generation: 1
+  labels:
+    group: cherwell-api-test
+  name: cherwell-api-test
+  namespace: maximus-it
+  selfLink: /apis/extensions/v1beta1/namespaces/maximus-it/ingresses/cherwell-api-test
+spec:
+  rules:
+  - host: cherwell-api-dev.se.maximus.com
+    http:
+      paths:
+      - backend:
+          serviceName: cherwell-api-test
+          servicePort: 8080
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer: {}

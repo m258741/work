@@ -1,0 +1,13 @@
+./src/projects/* 
+./Downloads/* 
+./bin/Postman/*
+./bin/terraform*
+./.cache/*
+./.gradle/*
+./repos/*
+.config/Code/CachedData
+.config/Code/Cache
+work/OH-Zips-SPF
+work/PDMS-Zips
+./.local/share/Trash
+./core*

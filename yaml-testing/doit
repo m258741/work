@@ -1,0 +1,1 @@
+kubectl apply --dry-run=client -f `pwd` -o jsonpath="{.items[?(@.metadata.name=='cherwell-api-test')].metadata.namespace}"

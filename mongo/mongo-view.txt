@@ -1,0 +1,23 @@
+use dev_test;
+db.createView( "vulns", "sboms_dev", [
+   {
+      $lookup:
+         {
+            from: "jobs_dev",
+            localField: "sbomUUIDs[0]",
+            foreignField: "metadata.component.bom-ref",
+            as: "jobsjoin"
+         }
+   },
+   {
+      $project:
+         {
+           _id: 1,
+           accountName: 1,
+           environment: 1,
+           vulns: "$jobsjoin.vulnerabilities[0]"
+         }
+   }
+] );
+
+db.vulns.find({});

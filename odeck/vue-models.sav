@@ -1,0 +1,203 @@
+
+    /* WORKING MODEL: 
+    {
+	"id": "accounts-id",
+	"name": "accounts",
+	"children": [{
+			"id": "maximus-texaseb",
+			"name": "maximus-texaseb",
+			"region": "us-west-2",
+			"account_id": "002208536998",
+			"account_name": "maximus-texaseb",
+			"children": [{
+				"id": "maximus-texaseb-ec2s",
+				"name": "ec2",
+				"children": [{
+						"id": "Delphix Appliance",
+						"instance_env": "DEV",
+						"instance_os": "linux",
+						"name": "Delphix Appliance",
+						"private_ip": "10.118.56.169"
+					},
+					{
+						"id": "tx-e-app-dev1-chip-0",
+						"instance_env": "dev1",
+						"instance_os": "linux",
+						"name": "tx-e-app-dev1-chip-0",
+						"private_ip": "10.118.58.203"
+					}
+				]
+			}]
+		},
+		{
+			"account_id": "167683367656",
+			"account_name": "maximus-texaseb-prod",
+			"children": [],
+			"error": "Authorization Error",
+			"id": "maximus-texaseb-prod",
+			"name": "maximus-texaseb-prod",
+			"region": "us-west-2"
+		},
+		{
+			"id": "maximus-maxeatsproduct",
+			"name": "maximus-maxeatsproduct",
+			"region": "us-west-2",
+			"account_id": "613084855143",
+			"account_name": "maximus-maxeatsproduct",
+			"children": [{
+				"id": "maximus-maxeatsproduct-ec2s",
+				"name": "ec2",
+				"children": [
+					"",
+					{
+						"id": "maxe-app-dev1-audit-0",
+						"instance_env": "dev1",
+						"instance_os": "linux",
+						"name": "maxe-app-dev1-audit-0",
+						"private_ip": "10.118.104.207"
+					},
+					{
+						"id": "maxe-app-dev1-bastion-0",
+						"instance_env": "dev1",
+						"instance_os": "linux",
+						"name": "maxe-app-dev1-bastion-0",
+						"private_ip": "10.118.104.203"
+					},
+					{
+						"id": "maxe-app-dev1-eb-app-0",
+						"instance_env": "dev1",
+						"instance_os": "linux",
+						"name": "maxe-app-dev1-eb-app-0",
+						"private_ip": "10.118.104.202"
+					},
+					{
+						"id": "maxe-app-dev1-eb-jobs-0",
+						"instance_env": "dev1",
+						"instance_os": "linux",
+						"name": "maxe-app-dev1-eb-jobs-0",
+						"private_ip": "10.118.104.204"
+					},
+					{
+						"id": "maxe-app-dev1-enp-0",
+						"instance_env": "dev1",
+						"instance_os": "linux",
+						"name": "maxe-app-dev1-enp-0",
+						"private_ip": "10.118.104.209"
+					}
+				]
+			}]
+		}
+	]
+}
+*/
+    /*
+    WORKING MODEL:
+    {
+        "id": "accounts-list",
+        "name": "accounts",
+        "children": [ 
+            { 
+                "id": "maximus-maxeatsproduct",
+                "name": "maximus-maxeatsproduct",
+                "region": "us-west-2",
+                "account_id": "613084855143",
+                "account_name": "maximus-maxeatsproduct",
+                "children": [
+                    {
+                        "id": "accountName1-ec2s",
+                        "name": "ec2",
+                        "children": [
+                            {
+                                "id": "maxe-app-dev1-audit-0",
+                                "instance_env": "dev1",
+                                "instance_os": "linux",
+                                "name": "maxe-app-dev1-audit-0",
+                                "private_ip": "10.118.104.207"
+                            },
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+    */
+    /*
+    {
+        "id": "accounts-list",
+        "name": "accounts",
+        "children": [ 
+            { 
+                "id": "a",
+                "name": "a-name"
+            } 
+        ]
+}
+*/
+    /*
+    {
+                "id": 1,
+                name: "maximus-texaseb",
+                account_id: "002208536998",
+                account_name: "maximus-texaseb",
+                region: "us-west-2",
+                children: [
+                    {
+                        id: 2,
+                        name: "ec2",
+                        children: [
+                            {
+                                        id: 3,
+                                        name: "tx-e-app-dev3-eb-app-0",
+                                        //name: "tx-e-app-dev3-eb-db-0",
+                                        instance_env: "dev3",
+                                        instance_os: "linux",
+                                        private_ip: "10.118.94.215"
+                                        //private_ip: "10.118.94.196"
+                            },
+                            {
+                                        id: 4,
+                                        name: "maxe-app-dev1-audit-0",
+                                        instance_env: "dev1",
+                                        instance_os: "linux",
+                                        private_ip: "10.118.104.207"
+                            }
+                        ]
+                    },
+                    {
+                        id: 5,
+                        name: "fargate",
+                        children: [
+                            {
+                                id: 11,
+                                name: "clusters",
+                                children: [
+                                    {
+                                        id: 12,
+                                        name: "ops-spf-shell-dev-cluster",
+                                        children: [
+                                            {
+                                                id: 13,
+                                                name: "tasks",
+                                                children: [
+                                                    {
+                                                        id: 14,
+                                                        name: "containers",
+                                                        children: [
+                                                            {
+                                                            id: 15,
+                                                            name: "shell",
+                                                            status: "RUNNING"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+    */

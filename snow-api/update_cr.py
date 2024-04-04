@@ -1,32 +1,34 @@
 #!/usr/bin/python3
 import pysnow
 import json
-import sys
 
 # Create client object
 c = pysnow.Client(instance='maximusdev', user='codeshuttle.user', password='kdndenU212!!8ebhehndeF')
-print('c:')
-print(c)
+
+# update this CR:
+cr_number = 'CHG0030167'
 
 # Define a resource, here we'll use the incident table API
-incident = c.resource(api_path='/table/incident')
-print('incident: ' + str(incident))
+cr = c.resource(api_path='/table/change_request')
 #change = c.resource(api_path='/table/change')
 
-# Set the payload
-fields_json = {
-    'short_description': 'Pysnow created incident',
-    'description': 'This is awesome'
-}
+update = {'short_description': 'New short description', 'state': 4}
+
+# Update 'short_description' and 'state' for 'INC012345'
+updated_record = cr.update(query={'number': cr_number}, payload=update)
+
+# Print out the updated record
+print(updated_record)
+input('continue?')
 
 # Create a new incident record
-result = incident.create(payload=fields_json)
+result = cr.create(payload=fields_json)
 
 record = result.all()[0]
 print(json.dumps(record))
 
-inc_number = record['number']
-print('incident created: ' + inc_number)
+cr_number = record['number']
+print('cr created: ' + cr_number)
 # Iterate over the result and print out `sys_id` of the matching records.
 #for record in result.all():
 #    #print(record['sys_id'])

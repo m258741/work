@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import pysnow
 import json
+import sys
 
 # Create client object
 c = pysnow.Client(instance='maximusdev', user='codeshuttle.user', password='kdndenU212!!8ebhehndeF')
@@ -13,6 +14,11 @@ obj = c.resource(api_path='/table/change_request')
 #response = incident.get(query={})
 
 change_number='CHG0030165'
+
+# if change number provided on command line, load it
+if len(sys.argv) > 1:
+    change_number = sys.argv[1]
+
 
 qb = (
     pysnow.QueryBuilder()
@@ -27,4 +33,3 @@ for record in response.all():
     #print(record['sys_id'])
     print(json.dumps(record))
     #print(record['number'],record['sys_created_by'])
-    input('hit ret to proceed')

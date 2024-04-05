@@ -21,9 +21,10 @@ for i in range(10):
         'description': 'The PYSNOW API be working!',
         'state': itr,
         'type': 'standard',
-        'category': 'standard',
-        'sys_id': 'd52c2fa697d14e104546f027f053af55'
+        'category': 'standard'
     }
+        # 403: Forbidden - when I add this:
+        #'sys_id': 'd52c2fa697d14e104546f027f053af55'
     try:
         # skip error states:
         if itr == 3:

@@ -19,8 +19,12 @@ INCIDENT_DATA='{
 
 #INCIDENT_DATA=""
 OBJ_URL='api/now/v2/table/incident'
-curl -X POST -H "Content-Type: application/json" -H "Authorization: Basic" -u 'codeshuttle.user:kdndenU212!!8ebhehndeF' -d "$INCIDENT_DATA" "$INSTANCE_URL/api/now/v2/table/incident"
+set -x
+#curl -u 'codeshuttle.user:kdndenU212!!8ebhehndeF' -X POST -H "Content-Type: application/json" -d "$INCIDENT_DATA" "$INSTANCE_URL/api/now/v2/table/incident"
+curl -u "$USERNAME:$PASSWORD" -X POST -H "Content-Type: application/json" -d "$INCIDENT_DATA" "$INSTANCE_URL/api/now/v2/table/incident"
+#curl -X POST -H "Content-Type: application/json" -H "Authorization: Basic" -u 'codeshuttle.user:kdndenU212!!8ebhehndeF' -d "$INCIDENT_DATA" "$INSTANCE_URL/api/now/v2/table/incident"
 #curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $SESSION_TOKEN" -d "{\"user_name\":\"$USERNAME\",\"user_password\":\"$PASSWORD\"} $INCIDENT_DATA" "$INSTANCE_URL/api/now/v2/table/incident"
+set +x
 
 #INCIDENT_RESPONSE=$(curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $SESSION_TOKEN" -d "$INCIDENT_DATA" "$INSTANCE_URL/api/now/v2/table/incident")
 

@@ -18,9 +18,11 @@ for table in tables:
 
 # Specify the table from which you want to select rows
 selected_table = 'chg_model'
+#selected_table = 'sys_state_model'
  
 # Get rows from the selected table
 response = client.resource(api_path='/table/{}'.format(selected_table)).get()
+#response = client.resource(api_path='/table/*').get()
  
 # Extract data from the response
 if response and response.all():

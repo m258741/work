@@ -13,7 +13,7 @@ obj = c.resource(api_path='/table/change_request')
 # Query for incidents with state 1
 #response = incident.get(query={})
 
-change_number='CHG0030165'
+change_number='CHG0030300'
 
 # if change number provided on command line, load it
 if len(sys.argv) > 1:

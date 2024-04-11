@@ -4,7 +4,7 @@ import pysnow
 import json
 
 model_table_name = 'model'
-model_name = 'chg_model'
+#model_name = 'chg_model'
 
 # Create client object
 c = pysnow.Client(instance='maximusdev', user='codeshuttle.user', password='kdndenU212!!8ebhehndeF')

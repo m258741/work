@@ -39,25 +39,45 @@ CR_NUMBER=$(echo "$RESPONSE" | jq -r '.result[0].number.value')
 SYS_ID=$(echo "$RESPONSE" | jq -r '.result[0].sys_id.value')
 echo "SYS_ID: $SYS_ID"
 
-UPDATE_PAYLOAD="{
-  'state': 'Scheduled',
-  'short_description': 'UPDATED 2: moved state to scheduled',
+# NOTE!: short_description field update was blocked, during transition to "Closed"
+UPDATE_PAYLOAD4="{
+  'state': 'Closed',
+  'close_code': 'Successful',
+  'close_notes': 'Codeshuttle deployment successful',
+  'short_description': 'UPDATE 4: moved state to scheduled'
 }"
-# move to 'implement' (Q: do we need to set the business and technical approvers??)
-#UPDATE_PAYLOAD="{
-#  'state': 'Scheduled',
-#  'short_description': 'UPDATED 2: moved state to scheduled',
-#  'u_business': '1f19b06197c902104546f027f053afec',
-#  'u_technical': '735ac2ca47936510a71c1347e26d43d5'
-#}"
+UPDATE_PAYLOAD3="{
+  'state': 'Final Review',
+  'short_description': 'UPDATE 3: moved state to scheduled'
+}"
+#move to 'Implement' (Q: do we need to set the business and technical approvers??)
+UPDATE_PAYLOAD2="{
+  'state': 'Implement',
+  'short_description': 'UPDATE 2: moved state to scheduled'
+}"
+#move to 'Scheduled' (Q: do we need to set the business and technical approvers??)
+UPDATE_PAYLOAD1="{
+  'state': 'Scheduled',
+  'short_description': 'UPDATED 1: moved state to scheduled',
+  'u_business': '1f19b06197c902104546f027f053afec',
+  'u_technical': '735ac2ca47936510a71c1347e26d43d5'
+}"
 # works:
-echo sleeping before update...
-sleep 5
-# Update the CR:
-#RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X PATCH -H "Content-Type: application/json" "$INSTANCE_URL/api/sn_chg_rest/v1/change/${SYS_ID}" -d "{'state': 'scheduled'}")
-# this worked:
-#RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X PATCH -H "Content-Type: application/json" "$INSTANCE_URL/api/sn_chg_rest/v1/change/${SYS_ID}" -d "{'short_description': 'SHORT DESC UPDATED'}")
-RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X PATCH -H "Content-Type: application/json" "$INSTANCE_URL/api/sn_chg_rest/v1/change/${SYS_ID}" -d "${UPDATE_PAYLOAD}")
+echo pausing before update...
+sleep 2
+# START HERE:
+echo "hit ret to do 1(Scheduled)..."
+read yn
+RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X PATCH -H "Content-Type: application/json" "$INSTANCE_URL/api/sn_chg_rest/v1/change/${SYS_ID}" -d "${UPDATE_PAYLOAD1}")
+echo "hit ret to do 2...(Implement)"
+read yn
+RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X PATCH -H "Content-Type: application/json" "$INSTANCE_URL/api/sn_chg_rest/v1/change/${SYS_ID}" -d "${UPDATE_PAYLOAD2}")
+echo "hit ret to do 3...(Final Review)"
+read yn
+RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X PATCH -H "Content-Type: application/json" "$INSTANCE_URL/api/sn_chg_rest/v1/change/${SYS_ID}" -d "${UPDATE_PAYLOAD3}")
+echo "hit ret to do 4...(Closed)"
+read yn
+RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X PATCH -H "Content-Type: application/json" "$INSTANCE_URL/api/sn_chg_rest/v1/change/${SYS_ID}" -d "${UPDATE_PAYLOAD4}")
 
 echo "PATCH RESPONSE: $RESPONSE"
 echo "PATCH RESPONSE: $RESPONSE" > /tmp/patched.json

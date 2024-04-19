@@ -16,7 +16,10 @@ set -x
 #curl "${INSTANCE_URL}/api/sn_chg_rest/v1/change/standard/template" \
 #curl "${INSTANCE_URL}/api/sn_chg_rest/v1/change/standard/template?sysparm_query=active=false" \
 #curl "${INSTANCE_URL}/api/sn_chg_rest/v1/change/standard/template?sysparm_query=sys_id=fb4ebea3473806108895198c326d4321" \
-curl "${INSTANCE_URL}/api/sn_chg_rest/v1/change/standard/template" \
+#curl "${INSTANCE_URL}/api/sn_chg_rest/v1/change/standard/template" \
+
+# Codeshuttle template sys_id: 0e33716e97658a104546f027f053af94
+curl "${INSTANCE_URL}/api/sn_chg_rest/v1/change/standard/template?sysparm_query=sys_id=0e33716e97658a104546f027f053af94" \
 --request GET \
 --header "Accept:application/json" \
 --user "${USERNAME}":"${PASSWORD}"

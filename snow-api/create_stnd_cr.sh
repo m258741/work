@@ -11,28 +11,48 @@ set -x
 #TOKEN_RESPONSE=$(curl -X POST -H "Content-Type: application/json" -d "{\"user_name\":\"$USERNAME\",\"user_password\":\"$PASSWORD\"}" "$SNOW_URL/api/now/v2/table/sys_user_session")
 #SESSION_TOKEN=$(echo "$TOKEN_RESPONSE" | jq -r '.result.session_id')
 
-# Create an incident
+# WIP saved 4/19 - state unknown
+#PAYLOAD="{
+#  'type': 'standard',
+#  'chg_model': 'e55d0bfec343101035ae3f52c1d3ae49',
+#  'category': 'b0fdfb01932002009ca87a75e57ffbe9',
+#  'template_id': 'c136b71a974902104546f027f053af35',
+#  'priority': '1 - Critical',
+#  'risk': 'Critical',
+#  'impact': 'High (1000+ Users)',
+#  'assignment_group': 'SG-SN Application Admin',
+#  'justification': 'this is the justification',
+#  'start_date': '04/10/2024 05:45:19 PM',
+#  'end_date': '04/10/2024 05:55:19 PM',
+#  'u_environment': 'Development',
+#  'short_description': 'This is the short description',
+#  'description': 'This is the description'
+#}"
+# Create an Standard CR
 PAYLOAD="{
   'type': 'standard',
-  'chg_model': 'e55d0bfec343101035ae3f52c1d3ae49',
-  'category': 'b0fdfb01932002009ca87a75e57ffbe9',
-  'template_id': 'c136b71a974902104546f027f053af35',
-  'priority': '1 - Critical',
-  'risk': 'Critical',
-  'impact': 'High (1000+ Users)',
-  'assignment_group': 'SG-SN Application Admin',
-  'justification': 'this is the justification',
-  'start_date': '04/10/2024 05:45:19 PM',
-  'end_date': '04/10/2024 05:55:19 PM',
-  'u_environment': 'Development',
-  'short_description': 'This is the short description',
-  'description': 'This is the description'
+  'chg_model': 'e55d0bfec343101035ae3f52c1d3ae49'
+  'std_change_producer_version': '8633716e97658a104546f027f053afb8',
+  'std_change_record_producer': '0e33716e97658a104546f027f053af94'
 }"
 # addl fields for transition to "scheduled":
 # these cannot be set in the initial create
 #  'u_business_approver': 'Amy Smith',
 #  'u_technical_approver': 'Jisu Dasgupta'
 
+  #'std_change_record_producer': '0e33716e97658a104546f027f053af94'
+# Partial success - picks up the Description, from the template.  producer fields gleened from get_change_template.sh response.
+PAYLOAD="{
+  'type': 'standard',
+  'chg_model': 'e55d0bfec343101035ae3f52c1d3ae49',
+  'std_change_producer_version': '8633716e97658a104546f027f053afb8'
+}"
+
+# WORKING 4/19: MVPayload
+#PAYLOAD="{
+#  'type': 'standard',
+#  'chg_model': 'e55d0bfec343101035ae3f52c1d3ae49'
+#}"
 # Working 4/10
 #PAYLOAD='{
 #  "type": "standard",
@@ -121,8 +141,22 @@ PAYLOAD="{
 
 set -x
 # change request:
+# working 4/19
+#RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$SNOW_URL/api/now/v2/table/change_request")
+# this SHOULD work: url is combination of API doc spec here: https://developer.servicenow.com/dev.do#!/reference/api/washingtondc/rest/change-management-api#change-POST-standard
+# sample from doc: /api/sn_chg_rest/{api_version}/change/standard/{standard_change_template_id}
+# and ...
+RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$SNOW_URL/api/sn_chg_rest/v1/change/standard/0e33716e97658a104546f027f053af94")
+#api/sn_chg_rest/v1/change/standard/template
+
+# Not working:
+#RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$SNOW_URL/api/sn_chg_rest/change/standard")
+# Not working:
+#RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$SNOW_URL/api/now/v2/table/change_request/standard/0e33716e97658a104546f027f053af94")
+
 # THIS IS WORKING 4/9:
-RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$SNOW_URL/api/now/v2/table/change_request")
+#RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$SNOW_URL/api/now/v2/table/change_request")
+
 #RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$SNOW_URL/sn_chg_rest/change/standard/6d07efd897d146104546f027f053af1f")
 #RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$SNOW_URL/api/now/v2/table/change_request/6d07efd897d146104546f027f053af1f")
 set +x

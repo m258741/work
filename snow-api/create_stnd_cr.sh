@@ -44,7 +44,11 @@ set -x
 # Partial success - picks up the Description, from the template.  producer fields gleened from get_change_template.sh response.
 PAYLOAD="{
   'type': 'standard',
-  'chg_model': 'e55d0bfec343101035ae3f52c1d3ae49'
+  'chg_model': 'e55d0bfec343101035ae3f52c1d3ae49',
+  'priority': '1 - Critical',
+  'assignment_group': 'SG-SN Automated Process',
+  'justification': 'this is the justification',
+  'description': 'This is the description'
 }"
 
 # WORKING 4/19: MVPayload
@@ -163,7 +167,7 @@ set +x
 #INCIDENT_RESPONSE=$(curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $SESSION_TOKEN" -d "$INCIDENT_DATA" "$SNOW_URL/api/now/v2/table/incident")
 
 # Check the response and handle accordingly
-CR_NUMBER=$(echo "$RESPONSE" | jq -r '.result.number')
+CR_NUMBER=$(echo "$RESPONSE" | jq -r '.result.number.value')
 echo "RESPONSE: $RESPONSE"
 
 if [ -n "$CR_NUMBER" ]; then

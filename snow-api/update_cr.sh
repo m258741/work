@@ -56,6 +56,8 @@ UPDATE_PAYLOAD2="{
   'short_description': 'UPDATE 2: moved state to scheduled'
 }"
 #move to 'Scheduled' (Q: do we need to set the business and technical approvers??)
+# NOTE: cannot update Description field - blocked by ServiceNow
+# NOTE: short_description can ONLY be updated in this 'Scheduled' transition update - later updates blocked by ServiceNow
 UPDATE_PAYLOAD1="{
   'state': 'Scheduled',
   'short_description': 'UPDATED 1: moved state to scheduled',

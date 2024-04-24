@@ -29,12 +29,12 @@ set -x
 #  'description': 'This is the description'
 #}"
 # Create an Standard CR
-PAYLOAD="{
-  'type': 'standard',
-  'chg_model': 'e55d0bfec343101035ae3f52c1d3ae49'
-  'std_change_producer_version': '8633716e97658a104546f027f053afb8',
-  'std_change_record_producer': '0e33716e97658a104546f027f053af94'
-}"
+#PAYLOAD="{
+#  'type': 'standard',
+#  'chg_model': 'e55d0bfec343101035ae3f52c1d3ae49'
+#  'std_change_producer_version': '8633716e97658a104546f027f053afb8',
+#  'std_change_record_producer': '0e33716e97658a104546f027f053af94'
+#}"
 # addl fields for transition to "scheduled":
 # these cannot be set in the initial create
 #  'u_business_approver': 'Amy Smith',
@@ -44,8 +44,7 @@ PAYLOAD="{
 # Partial success - picks up the Description, from the template.  producer fields gleened from get_change_template.sh response.
 PAYLOAD="{
   'type': 'standard',
-  'chg_model': 'e55d0bfec343101035ae3f52c1d3ae49',
-  'std_change_producer_version': '8633716e97658a104546f027f053afb8'
+  'chg_model': 'e55d0bfec343101035ae3f52c1d3ae49'
 }"
 
 # WORKING 4/19: MVPayload

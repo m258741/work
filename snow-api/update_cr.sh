@@ -44,16 +44,19 @@ UPDATE_PAYLOAD4="{
   'state': 'Closed',
   'close_code': 'Successful',
   'close_notes': 'Codeshuttle deployment successful',
-  'short_description': 'UPDATE 4: moved state to scheduled'
+  'short_description': 'UPDATE 4: moved state to scheduled',
+  'description': 'UPDATE 4: moved state to scheduled'
 }"
 UPDATE_PAYLOAD3="{
   'state': 'Final Review',
-  'short_description': 'UPDATE 3: moved state to scheduled'
+  'short_description': 'UPDATE 3: moved state to scheduled',
+  'description': 'UPDATE 3: moved state to scheduled'
 }"
 #move to 'Implement' (Q: do we need to set the business and technical approvers??)
 UPDATE_PAYLOAD2="{
   'state': 'Implement',
-  'short_description': 'UPDATE 2: moved state to scheduled'
+  'short_description': 'UPDATE 2: moved state to scheduled',
+  'description': 'UPDATE 2: moved state to scheduled'
 }"
 #move to 'Scheduled' (Q: do we need to set the business and technical approvers??)
 # NOTE: cannot update Description field - blocked by ServiceNow
@@ -71,18 +74,23 @@ sleep 2
 echo "hit ret to do 1(Scheduled)..."
 read yn
 RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X PATCH -H "Content-Type: application/json" "$INSTANCE_URL/api/sn_chg_rest/v1/change/${SYS_ID}" -d "${UPDATE_PAYLOAD1}")
+echo "RESPONSE: $RESPONSE"
+# RESPONSE with 'description' in payload: 
+# {"error":{"message":"Change Request record could not be updated. Operation against file 'change_request' was aborted by Business Rule 'Restrict fields from Standard Change^5230b9179735ca504546f027f053af79'. Business Rule Stack:Restrict fields from Standard Change","detail":""},"status":"failure"}
 echo "hit ret to do 2...(Implement)"
 read yn
 RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X PATCH -H "Content-Type: application/json" "$INSTANCE_URL/api/sn_chg_rest/v1/change/${SYS_ID}" -d "${UPDATE_PAYLOAD2}")
+echo "RESPONSE: $RESPONSE"
+# RESPONSE: "__meta":{"ignoredFields":["short_description","description"]}}}
+# note: despite short_description field seeming to be ignored, in the response above, the value actually DID change, in the UI.
 echo "hit ret to do 3...(Final Review)"
 read yn
 RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X PATCH -H "Content-Type: application/json" "$INSTANCE_URL/api/sn_chg_rest/v1/change/${SYS_ID}" -d "${UPDATE_PAYLOAD3}")
+echo "RESPONSE: $RESPONSE"
 echo "hit ret to do 4...(Closed)"
 read yn
 RESPONSE=$(curl -u "$USERNAME:$PASSWORD" -X PATCH -H "Content-Type: application/json" "$INSTANCE_URL/api/sn_chg_rest/v1/change/${SYS_ID}" -d "${UPDATE_PAYLOAD4}")
-
-echo "PATCH RESPONSE: $RESPONSE"
-echo "PATCH RESPONSE: $RESPONSE" > /tmp/patched.json
+echo "RESPONSE: $RESPONSE"
 
 if [ -n "$CR_NUMBER" ]; then
   echo "CR fetched successfully: $CR_NUMBER"

@@ -13,14 +13,14 @@ set -x
 
 # Create an incident
 INCIDENT_DATA='{
-  "short_description": "API Test Incident",
-  "description": "This is a test incident created via API."
+  "short_description": "API Test CR",
+  "description": "This is a test CR created via API."
 }'
 
 #INCIDENT_DATA=""
 #OBJ_URL='api/now/v2/table/incident'
 set -x
-#curl -u 'codeshuttle.user:kdndenU212!!8ebhehndeF' -X POST -H "Content-Type: application/json" -d "$INCIDENT_DATA" "$INSTANCE_URL/api/now/v2/table/incident"
+#curl -u 'codeshuttle.user:password-value' -X POST -H "Content-Type: application/json" -d "$INCIDENT_DATA" "$INSTANCE_URL/api/now/v2/table/incident"
 # incident:
 #curl -u "$USERNAME:$PASSWORD" -X POST -H "Content-Type: application/json" -d "$INCIDENT_DATA" "$INSTANCE_URL/api/now/v2/table/incident"
 # change request:

@@ -3,7 +3,9 @@
 SNOW_URL='https://maximusdev.service-now.com'
 #USERNAME="snow_api"
 USERNAME="codeshuttle.user"
-PASSWORD='kdndenU212!!8ebhehndeF'
+set -x
+PASSWORD=$(cat ~/.snow/.secrets | grep 'snow_api_dev' | cut -d':' -f2)
+echo "PASSWORD: $PASSWORD"
 
 set -x
 
@@ -44,12 +46,12 @@ set -x
 # Partial success - picks up the Description, from the template.  producer fields gleened from get_change_template.sh response.
 PAYLOAD="{
   'type': 'standard',
-  'chg_model': 'e55d0bfec343101035ae3f52c1d3ae49',
   'priority': '1 - Critical',
   'assignment_group': 'SG-SN Automated Process',
   'justification': 'this is the justification',
   'description': 'This is the description'
 }"
+# 4/25: try removing this:  'chg_model': 'e55d0bfec343101035ae3f52c1d3ae49',
 
 # WORKING 4/19: MVPayload
 #PAYLOAD="{
